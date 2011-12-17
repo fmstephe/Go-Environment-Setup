@@ -11,3 +11,5 @@ echo PATH=\$PATH:\$GOPATH/bin:\$GOBIN >> $HOME/.profile
 echo alias psrc=\"cd \$GOPATH/src\"  >> $HOME/.bash_aliases
 echo alias gsrc=\"cd \$GOROOT/src/pkg\"  >> $HOME/.bash_aliases
 echo alias gi=goinstall  >> $HOME/.bash_aliases
+
+. ~/.profile
