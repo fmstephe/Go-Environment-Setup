@@ -1,3 +1,3 @@
 #!/bin/sh
 
-goinstall go-gb.googlecode.com/hg/gb
+goinstall github.com/skelterjohn/go-gb/gb
