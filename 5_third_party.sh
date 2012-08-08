@@ -1,3 +1,3 @@
 #!/bin/sh
 
-goinstall github.com/skelterjohn/go-gb/gb
+go get github.com/skelterjohn/go-gb/gb
