@@ -1,1 +1,3 @@
 A set of scripts for setting up my Go development environment.
+
+A tip. Don't run these scripts as sudo. These scripts create a large number of files and if you run them under sudo you won't own them at the end :)
