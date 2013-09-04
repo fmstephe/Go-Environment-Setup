@@ -1,0 +1,22 @@
+Naminv commands
+
+C-a , Name current window
+
+Navigation commands
+
+C-a n     next window
+C-a p     previous window
+C-a l     previously selected window
+C-a w     list all windows/ window numbers
+C-a [0-9] move to the window number provided
+C-a f     find a window by text search
+
+
+Tiling commands
+
+C-a | split the window horizontally
+C-a % split window vertically
+C-a o goto next pane
+C-a q show pane numbers, when the number appears type it to go to that pane
+C-a } move current pane left
+C-a { move current pane right
