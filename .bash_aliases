@@ -12,3 +12,14 @@ alias bnc="go test -bench=.*"
 alias mk="clear && make"
 alias clr="clear"
 alias gbt="clear && time gb -t"
+
+alias hig="history | grep "
+
+repeat() {
+        n=$1
+        shift
+        while [ $(( n -= 1 )) -ge 0 ]
+        do
+                "$@"
+        done
+}
