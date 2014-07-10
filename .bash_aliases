@@ -5,7 +5,7 @@ alias gi=goinstall
 alias gst="git status"
 alias gco="git checkout"
 alias gcm="git commit"
-alias gbr="git branch"
+alias gbr="git branch -avv"
 alias glg="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
 alias pprof="go tool pprof"
 alias bnc="go test -bench=.*"
