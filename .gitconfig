@@ -3,3 +3,5 @@
 [user]
 	name = Francis Stephens
 	email = francisstephens@gmail.com
+[push]
+	default = simple
