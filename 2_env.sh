@@ -9,6 +9,4 @@ then
 	mv $HOME/.profile $HOME/.profile_old
 fi
 cp .bash_aliases $HOME/
-source $HOME/.bash_aliases
 cp .profile $HOME/
-source $HOME/.profile
