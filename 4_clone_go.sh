@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cd $HOME/golang
 hg clone -u release https://go.googlecode.com/hg/ go
