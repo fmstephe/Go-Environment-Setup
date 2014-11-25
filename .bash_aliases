@@ -7,7 +7,9 @@ alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
 
 #App Engine
-alias aes="goapp serve"
+alias serve="goapp serve"
+alias build="goapp build"
+alias deploy="goapp deploy"
 
 # Git
 alias gst="git status"
