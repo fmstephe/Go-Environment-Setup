@@ -1,5 +1,9 @@
+set nocompatible
 filetype off
 filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
+set rtp+=~/.vim/bundle/vundle
+call vundle#begin()
+Plugin 'fatih/vim-go'
+call vundle#end()
 filetype plugin indent on
 syntax on
