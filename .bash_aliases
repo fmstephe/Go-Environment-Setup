@@ -18,6 +18,8 @@ alias gcm="git commit"
 alias gbr="git branch -avv"
 alias glg="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
 
+alias fswp="find . -name '*.swp'"
+
 #Misc
 alias hig="history | grep "
 
