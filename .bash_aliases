@@ -23,6 +23,9 @@ alias fswp="find . -name '*.swp'"
 #Misc
 alias hig="history | grep "
 
+alias lll="ls -1"
+alias lln="ls -1 | grep"
+
 repeat() {
         n=$1
         shift
