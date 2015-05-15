@@ -17,12 +17,12 @@ alias gco="git checkout"
 alias gcm="git commit"
 alias gbr="git branch -avv"
 alias glg="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
+alias grp="git grep"
 
-alias fswp="find . -name '*.swp'"
 
 #Misc
 alias hig="history | grep "
-
+alias fswp="find . -name '*.swp'"
 alias lll="ls -1"
 alias lln="ls -1 | grep"
 
