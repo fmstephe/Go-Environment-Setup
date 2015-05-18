@@ -1,8 +1,20 @@
 # Golang
-alias psrc="cd $GOPATH/src/github.com/fmstephe"
-alias bel="cd $GOPATH/src/github.com/belua"
-alias gsrc="cd $GOROOT/src/pkg"
-alias pkg="cd $GOPATH/pkg"
+function psrc() {
+	cd $GOPATH/src/github.com/fmstephe
+}
+
+function bel() {
+	cd $GOPATH/src/github.com/belua
+}
+
+function gsrc() {
+	cd $GOROOT/src/pkg
+}
+
+function pkg() {
+	cd $GOPATH/pkg
+}
+
 alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
 
