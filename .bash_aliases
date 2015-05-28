@@ -20,7 +20,7 @@ alias allGo="find . -name '*.go' | xargs"
 
 #App Engine
 alias serve="gofmt -w . && goapp serve"
-alias build="gofmt -w . && goapp build"
+alias build="clear && gofmt -w . && goapp build"
 alias deploy="gofmt -w . && goapp deploy"
 
 # Git

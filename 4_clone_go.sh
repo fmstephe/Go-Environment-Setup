@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cd $HOME/golang
-hg clone -u release https://go.googlecode.com/hg/ go
+git clone https://go.googlecode.com/go
 cd $HOME/golang/go/src
 ./all.bash
