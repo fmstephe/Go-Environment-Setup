@@ -26,5 +26,6 @@ export GOARCH=amd64
 export GOOS=linux
 export GOBIN=$GOROOT/bin
 export GOPATH=$GOLANG/proj
+export GOMAXPROCS=4
 export CFLAGS="-Wall"
 PATH=$PATH:$GOPATH/bin:$GOBIN
