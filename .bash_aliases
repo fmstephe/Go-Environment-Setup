@@ -15,6 +15,10 @@ function pkg() {
 	cd $GOPATH/pkg
 }
 
+function killAll() {
+	ps -ef | grep $1 | awk -F ' ' '{print $2}' | xargs kill -9
+}
+
 alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
 
