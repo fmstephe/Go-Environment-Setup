@@ -15,9 +15,16 @@ function pkg() {
 	cd $GOPATH/pkg
 }
 
-function killAll() {
+function killg() {
 	ps -ef | grep $1 | awk -F ' ' '{print $2}' | xargs kill -9
 }
+
+function psg() {
+	ps -ef | grep $1
+}
+
+alias tdis="rename 's/.go/.go.disabled/g' *test.go"
+alias ten="rename 's/.go.disabled/.go/g' *test.go.disabled"
 
 alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
@@ -26,7 +33,7 @@ alias allGo="find . -name '*.go' | xargs"
 alias aeserve="gofmt -w . && goapp serve"
 alias aebuild="clear && gofmt -w . && goapp build"
 alias aedeploy="gofmt -w . && goapp deploy"
-alias aetest="gofmt -w . && goapp test"
+alias aetest="clear gofmt -w . && goapp test"
 
 # Git
 alias gst="git status"
