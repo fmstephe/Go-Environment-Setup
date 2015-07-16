@@ -30,7 +30,7 @@ alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
 
 #App Engine
-alias aeserve="gofmt -w . && goapp serve"
+alias aeserve="gofmt -w . && goapp serve --host 0.0.0.0"
 alias aebuild="clear && gofmt -w . && goapp build"
 alias aedeploy="gofmt -w . && goapp deploy"
 alias aetest="clear gofmt -w . && goapp test"
