@@ -15,6 +15,14 @@ function pkg() {
 	cd $GOPATH/pkg
 }
 
+function aestop() {
+	ps -ef | grep 'python.*dev_appserver' | awk -F ' ' '{print $2}' | xargs kill -9
+}
+
+function aelist() {
+	ps -ef | grep 'python.*dev_appserver'
+}
+
 function killg() {
 	ps -ef | grep $1 | awk -F ' ' '{print $2}' | xargs kill -9
 }
