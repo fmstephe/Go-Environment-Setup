@@ -23,6 +23,10 @@ function psg() {
 	ps -ef | grep $1
 }
 
+function gr() {
+	find . -name '*.go' | xargs sed -i 's/'$1'/'$2'/g'
+}
+
 alias tdis="rename 's/.go/.go.disabled/g' *test.go"
 alias ten="rename 's/.go.disabled/.go/g' *test.go.disabled"
 
