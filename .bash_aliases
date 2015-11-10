@@ -42,7 +42,17 @@ alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
 
 #App Engine
-alias aeserve="gofmt -w . && goapp serve --host 0.0.0.0"
+function aeserve() {
+	if [ -e portfile  ];
+	then
+		PORT=`cat portfile`;
+		echo $PORT;
+		goapp serve --host 127.0.0.1 -port $PORT;
+	else
+		echo "No portfile found";
+		goapp serve --host 127.0.0.1;
+	fi
+}
 alias aebuild="clear && gofmt -w . && goapp build"
 alias aedeploy="gofmt -w . && goapp deploy"
 alias aetest="clear gofmt -w . && goapp test"
