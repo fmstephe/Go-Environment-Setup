@@ -42,12 +42,14 @@ alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
 
 #App Engine
+unalias aeserve
 function aeserve() {
 	if [ -e portfile  ];
 	then
 		PORT=`cat portfile`;
-		echo $PORT;
-		goapp serve --host 127.0.0.1 -port $PORT;
+		ADMIN_PORT=$PORT;
+                ((ADMIN_PORT+=1000))
+		goapp serve --host 127.0.0.1 -port $PORT -admin_port $ADMIN_PORT;
 	else
 		echo "No portfile found";
 		goapp serve --host 127.0.0.1;
