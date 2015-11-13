@@ -35,6 +35,34 @@ function gr() {
 	find . -name '*.go' | xargs sed -i 's/'$1'/'$2'/g'
 }
 
+function rgs()
+{
+        WD=`pwd`;
+        for DIR in ${WD}/*;
+        do
+                if test -e ${DIR}/.git;
+                then
+                        cd ${DIR};
+                        F=`git fetch --quiet`;
+                        if [ "${F}" != "" ];
+                        then
+				echo
+                                echo ${DIR}
+				echo ${F}
+			fi
+                        S=`git status --porcelain`;
+                        if [ "${S}" != "" ];
+                        then
+				echo
+                                echo ${DIR}
+				echo ${S}
+                        fi
+                fi
+        done
+	cd ${WD}
+}
+
+
 alias tdis="rename 's/.go/.go.disabled/g' *test.go"
 alias ten="rename 's/.go.disabled/.go/g' *test.go.disabled"
 
@@ -42,17 +70,16 @@ alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
 
 #App Engine
-unalias aeserve
 function aeserve() {
 	if [ -e portfile  ];
 	then
 		PORT=`cat portfile`;
-		ADMIN_PORT=$PORT;
-                ((ADMIN_PORT+=1000))
+	ADMIN_PORT=$PORT;
+	((ADMIN_PORT+=1000))
 		goapp serve --host 127.0.0.1 -port $PORT -admin_port $ADMIN_PORT;
 	else
 		echo "No portfile found";
-		goapp serve --host 127.0.0.1;
+	goapp serve --host 127.0.0.1;
 	fi
 }
 alias aebuild="clear && gofmt -w . && goapp build"
@@ -75,11 +102,11 @@ alias lll="ls -1"
 alias lln="ls -1 | grep"
 
 repeat() {
-        n=$1
-        shift
-        while [ $(( n -= 1 )) -ge 0 ]
-        do
-                "$@"
-        done
+	n=$1
+		shift
+		while [ $(( n -= 1 )) -ge 0 ]
+			do
+				"$@"
+					done
 }
 
