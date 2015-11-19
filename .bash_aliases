@@ -37,6 +37,7 @@ function gr() {
 
 function rgs()
 {
+	clear
         WD=`pwd`;
         for DIR in ${WD}/*;
         do
@@ -50,12 +51,16 @@ function rgs()
                                 echo ${DIR}
 				echo ${F}
 			fi
-                        S=`git status --porcelain`;
+			S=`git status | grep ahead`
+			S+=`git status | grep behind`
+                        S+=`git status --porcelain`;
                         if [ "${S}" != "" ];
                         then
 				echo
+				echo "-----------------"
+				echo
                                 echo ${DIR}
-				echo ${S}
+				git status
                         fi
                 fi
         done
