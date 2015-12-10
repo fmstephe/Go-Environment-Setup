@@ -35,6 +35,10 @@ function gr() {
 	find . -name '*.go' | xargs sed -i 's/'$1'/'$2'/g'
 }
 
+function grpl() {
+	grep -r --color=always $1 . | less -R
+}
+
 function rgs()
 {
 	clear
@@ -66,7 +70,6 @@ function rgs()
         done
 	cd ${WD}
 }
-
 
 alias tdis="rename 's/.go/.go.disabled/g' *test.go"
 alias ten="rename 's/.go.disabled/.go/g' *test.go.disabled"
