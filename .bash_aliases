@@ -36,7 +36,7 @@ function gr() {
 }
 
 function grpl() {
-	grep -r --color=always $1 . | less -R
+	grep -r --color=always --exclude-dir="\.git" $1 . | less -R
 }
 
 function rgs()
