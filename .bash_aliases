@@ -39,36 +39,71 @@ function grpl() {
 	grep -r --color=always --exclude-dir="\.git" $1 . | less -R
 }
 
-function rgs()
+function do_in_subdirs()
 {
 	clear
         WD=`pwd`;
         for DIR in ${WD}/*;
         do
-                if test -e ${DIR}/.git;
-                then
-                        cd ${DIR};
-                        F=`git fetch --quiet`;
-                        if [ "${F}" != "" ];
-                        then
-				echo
-                                echo ${DIR}
-				echo ${F}
-			fi
-			S=`git status | grep ahead`
-			S+=`git status | grep behind`
-                        S+=`git status --porcelain`;
-                        if [ "${S}" != "" ];
-                        then
-				echo
-				echo "-----------------"
-				echo
-                                echo ${DIR}
-				git status
-                        fi
-                fi
+		cd ${DIR};
+		$1
         done
 	cd ${WD}
+}
+
+function echotest()
+{
+	do_in_subdirs ls
+}
+
+function git_fetch_in_dir()
+{
+	CURR_DIR=`pwd`;
+	if test -e ${CURR_DIR}/.git;
+	then
+		echo ${CURR_DIR}
+		git fetch
+	fi
+}
+
+function fetchall() {
+	do_in_subdirs git_fetch_in_dir
+}
+
+function git_status_in_dir()
+{
+	CURR_DIR=`pwd`;
+	if test -e ${CURR_DIR}/.git;
+	then
+		S=`git status | grep ahead`
+		S+=`git status | grep behind`
+		S+=`git status --porcelain`;
+		if [ "${S}" != "" ];
+		then
+			echo
+			echo "-----------------"
+			echo
+			echo ${CURR_DIR}
+			git status
+		fi
+	fi
+}
+
+function statusall() {
+	do_in_subdirs git_status_in_dir
+}
+
+function git_rebase_in_dir()
+{
+	CURR_DIR=`pwd`;
+	if test -e ${CURR_DIR}/.git;
+	then
+		git rebase
+	fi
+}
+
+function rebaseall() {
+	do_in_subdirs git_rebase_in_dir
 }
 
 alias tdis="rename 's/.go/.go.disabled/g' *test.go"
