@@ -98,12 +98,27 @@ function git_rebase_in_dir()
 	CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
+		echo ${CURR_DIR}
 		git rebase
 	fi
 }
 
 function rebaseall() {
 	do_in_subdirs git_rebase_in_dir
+}
+
+function git_push_in_dir()
+{
+	CURR_DIR=`pwd`;
+	if test -e ${CURR_DIR}/.git;
+	then
+		echo ${CURR_DIR}
+		git push
+	fi
+}
+
+function pushall() {
+	do_in_subdirs git_push_in_dir
 }
 
 alias tdis="rename 's/.go/.go.disabled/g' *test.go"
