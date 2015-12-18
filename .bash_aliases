@@ -41,15 +41,14 @@ function grpl() {
 
 function do_in_subdirs()
 {
-	clear
-        WD=`pwd`;
+        local WD=`pwd`;
         for DIR in ${WD}/*;
         do
 		if test -d $DIR;
 		then
 			cd ${DIR};
-			echo `pwd`
 			$1
+			do_in_subdirs $1
 		fi
         done
 	cd ${WD}
@@ -62,9 +61,10 @@ function echotest()
 
 function git_fetch_in_dir()
 {
-	CURR_DIR=`pwd`;
+	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
+		echo $CURR_DIR
 		git fetch
 	fi
 }
@@ -75,9 +75,10 @@ function fetchall() {
 
 function git_status_in_dir()
 {
-	CURR_DIR=`pwd`;
+	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
+		echo $CURR_DIR
 		S=`git status | grep ahead`
 		S+=`git status | grep behind`
 		S+=`git status --porcelain`;
@@ -97,9 +98,10 @@ function statusall() {
 
 function git_rebase_in_dir()
 {
-	CURR_DIR=`pwd`;
+	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
+		echo $CURR_DIR
 		git rebase
 	fi
 }
@@ -110,15 +112,30 @@ function rebaseall() {
 
 function git_push_in_dir()
 {
-	CURR_DIR=`pwd`;
+	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
+		echo $CURR_DIR
 		git push
 	fi
 }
 
 function pushall() {
 	do_in_subdirs git_push_in_dir
+}
+
+function ae_build_in_dir()
+{
+	local CURR_DIR=`pwd`;
+	if test -e ${CURR_DIR}/app.yaml;
+	then
+		echo $CURR_DIR
+		goapp build
+	fi
+}
+
+function buildall() {
+	do_in_subdirs ae_build_in_dir
 }
 
 alias tdis="rename 's/.go/.go.disabled/g' *test.go"
