@@ -45,8 +45,12 @@ function do_in_subdirs()
         WD=`pwd`;
         for DIR in ${WD}/*;
         do
-		cd ${DIR};
-		$1
+		if test -d $DIR;
+		then
+			cd ${DIR};
+			echo `pwd`
+			$1
+		fi
         done
 	cd ${WD}
 }
@@ -61,7 +65,6 @@ function git_fetch_in_dir()
 	CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
-		echo ${CURR_DIR}
 		git fetch
 	fi
 }
@@ -83,7 +86,6 @@ function git_status_in_dir()
 			echo
 			echo "-----------------"
 			echo
-			echo ${CURR_DIR}
 			git status
 		fi
 	fi
@@ -98,7 +100,6 @@ function git_rebase_in_dir()
 	CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
-		echo ${CURR_DIR}
 		git rebase
 	fi
 }
@@ -112,7 +113,6 @@ function git_push_in_dir()
 	CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
-		echo ${CURR_DIR}
 		git push
 	fi
 }
