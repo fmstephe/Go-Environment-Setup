@@ -54,11 +54,6 @@ function do_in_subdirs()
 	cd ${WD}
 }
 
-function echotest()
-{
-	do_in_subdirs ls
-}
-
 function git_fetch_in_dir()
 {
 	local CURR_DIR=`pwd`;
@@ -70,6 +65,7 @@ function git_fetch_in_dir()
 }
 
 function fetchall() {
+	clear
 	do_in_subdirs git_fetch_in_dir
 }
 
@@ -93,6 +89,7 @@ function git_status_in_dir()
 }
 
 function statusall() {
+	clear
 	do_in_subdirs git_status_in_dir
 }
 
@@ -107,6 +104,7 @@ function git_rebase_in_dir()
 }
 
 function rebaseall() {
+	clear
 	do_in_subdirs git_rebase_in_dir
 }
 
@@ -121,6 +119,7 @@ function git_push_in_dir()
 }
 
 function pushall() {
+	clear
 	do_in_subdirs git_push_in_dir
 }
 
@@ -135,6 +134,7 @@ function ae_build_in_dir()
 }
 
 function buildall() {
+	clear
 	do_in_subdirs ae_build_in_dir
 }
 
