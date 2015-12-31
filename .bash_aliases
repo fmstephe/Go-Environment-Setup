@@ -99,7 +99,12 @@ function git_rebase_in_dir()
 	if test -e ${CURR_DIR}/.git;
 	then
 		echo $CURR_DIR
-		git rebase
+		R=`git rebase`
+		GR=`echo ${R} | grep "is\sup\sto\sdate"`
+		if [ "${GR}" == "" ];
+		then
+		echo ${R}
+		fi
 	fi
 }
 
