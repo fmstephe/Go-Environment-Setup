@@ -158,7 +158,7 @@ function aeserve() {
 	fi
 }
 
-alias rnet='sudo ifdown eth0 && ifup eth0'
+alias rnet='sudo ifdown eth0 && sleep 2000 && ifup eth0'
 
 alias aebuild="clear && gofmt -w . && goapp build"
 alias aedeploy="gofmt -w . && goapp deploy"
