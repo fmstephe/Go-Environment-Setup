@@ -59,7 +59,6 @@ function git_fetch_in_dir()
 	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
-		echo $CURR_DIR
 		git fetch
 	fi
 }
@@ -74,7 +73,6 @@ function git_status_in_dir()
 	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
-		echo $CURR_DIR
 		S=`git status | grep ahead`
 		S+=`git status | grep behind`
 		S+=`git status --porcelain`;
@@ -98,7 +96,6 @@ function git_rebase_in_dir()
 	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
-		echo $CURR_DIR
 		R=`git rebase`
 		GR=`echo ${R} | grep "is\sup\sto\sdate"`
 		if [ "${GR}" == "" ];
@@ -118,7 +115,6 @@ function git_push_in_dir()
 	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
-		echo $CURR_DIR
 		git push
 	fi
 }
@@ -133,7 +129,6 @@ function ae_build_in_dir()
 	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/app.yaml;
 	then
-		echo $CURR_DIR
 		goapp build
 	fi
 }
