@@ -1,3 +1,7 @@
+function term() {
+	gnome-terminal --working-directory=`pwd`
+}
+
 # Golang
 function psrc() {
 	cd $GOPATH/src/github.com/fmstephe
