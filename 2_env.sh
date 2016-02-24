@@ -10,4 +10,3 @@ then
 fi
 cp .bash_aliases $HOME/
 cp .profile $HOME/
-cp -r .gconf $HOME/
