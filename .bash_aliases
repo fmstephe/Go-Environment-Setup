@@ -162,6 +162,9 @@ function aeserve() {
 	goapp serve --host 127.0.0.1;
 	fi
 }
+
+alias rnet='sudo ifdown eth0 && ifup eth0'
+
 alias aebuild="clear && gofmt -w . && goapp build"
 alias aedeploy="gofmt -w . && goapp deploy"
 alias aetest="clear gofmt -w . && goapp test"
@@ -177,7 +180,7 @@ alias grp="git grep"
 
 #Misc
 alias hig="history | grep "
-alias fswp="find . -name '*.swp'"
+alias fswp="find ~/ -name '*.swp'"
 alias lll="ls -1"
 alias lln="ls -1 | grep"
 
