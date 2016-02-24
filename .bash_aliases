@@ -78,6 +78,7 @@ function git_status_in_dir()
 		S+=`git status --porcelain`;
 		if [ "${S}" != "" ];
 		then
+			echo $CURR_DIR
 			echo
 			echo "-----------------"
 			echo
@@ -100,7 +101,8 @@ function git_rebase_in_dir()
 		GR=`echo ${R} | grep "is\sup\sto\sdate"`
 		if [ "${GR}" == "" ];
 		then
-		echo ${R}
+			echo $CURR_DIR
+			echo ${R}
 		fi
 	fi
 }
