@@ -63,6 +63,7 @@ function git_fetch_in_dir()
 	local CURR_DIR=`pwd`;
 	if test -e ${CURR_DIR}/.git;
 	then
+		echo $CURR_DIR
 		git fetch
 	fi
 }
@@ -164,7 +165,11 @@ function aeserve() {
 	fi
 }
 
-alias rnet='sudo ifdown eth0 && sleep 2000 && ifup eth0'
+function rnet() {
+	sudo ifdown eth0
+	sleep 1
+	sudo ifup eth0
+}
 
 alias aebuild="clear && gofmt -w . && goapp build"
 alias aedeploy="gofmt -w . && goapp deploy"
