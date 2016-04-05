@@ -7,28 +7,8 @@ function psrc() {
 	cd $GOPATH/src/github.com/fmstephe
 }
 
-function bel() {
-	cd $GOPATH/src/github.com/belua
-}
-
-function gsrc() {
-	cd $GOROOT/src/pkg
-}
-
-function pkg() {
-	cd $GOPATH/pkg
-}
-
-function aestop() {
-	ps -ef | grep 'python.*dev_appserver' | awk -F ' ' '{print $2}' | xargs kill -9
-}
-
-function aelist() {
-	ps -ef | grep 'python.*dev_appserver'
-}
-
-function killg() {
-	ps -ef | grep $1 | awk -F ' ' '{print $2}' | xargs kill -9
+function adj() {
+	cd $GOPATH/src/github.com/adjust
 }
 
 function psg() {
@@ -145,35 +125,13 @@ function buildall() {
 	do_in_subdirs ae_build_in_dir
 }
 
-alias tdis="rename 's/.go/.go.disabled/g' *test.go"
-alias ten="rename 's/.go.disabled/.go/g' *test.go.disabled"
-
-alias gbt="clear && time gb -t"
 alias allGo="find . -name '*.go' | xargs"
-
-#App Engine
-function aeserve() {
-	if [ -e portfile  ];
-	then
-		PORT=`cat portfile`;
-	ADMIN_PORT=$PORT;
-	((ADMIN_PORT+=1000))
-		goapp serve --host 127.0.0.1 -port $PORT -admin_port $ADMIN_PORT;
-	else
-		echo "No portfile found";
-	goapp serve --host 127.0.0.1;
-	fi
-}
 
 function rnet() {
 	sudo ifdown eth0
 	sleep 1
 	sudo ifup eth0
 }
-
-alias aebuild="clear && gofmt -w . && goapp build"
-alias aedeploy="gofmt -w . && goapp deploy"
-alias aetest="clear gofmt -w . && goapp test"
 
 # Git
 alias gst="git status"
