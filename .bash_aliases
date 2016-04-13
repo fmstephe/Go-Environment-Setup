@@ -20,7 +20,7 @@ function gr() {
 }
 
 function grpl() {
-	grep -r --color=always --exclude-dir="\.git" $1 . | less -R
+	grep -r --color=always -I --exclude-dir="\.git" $1 . | less -R
 }
 
 function do_in_subdirs()
