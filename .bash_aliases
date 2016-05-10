@@ -141,6 +141,10 @@ alias gbr="git branch -avv"
 alias glg="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
 alias grp="git grep"
 
+# Vim
+function fv() {
+	vim $(fzf)
+}
 
 #Misc
 alias hig="history | grep "
