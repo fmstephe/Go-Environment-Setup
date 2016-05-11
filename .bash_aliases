@@ -143,7 +143,18 @@ alias grp="git grep"
 
 # Vim
 function fv() {
-	vim $(fzf)
+	path=""
+	if [ $1 != ""  ]
+	then
+		path=$(fzf -q $1)
+	else
+		path=$(fzf)
+	fi
+	if [ "$path" == ""  ]
+	then
+		return
+	fi
+	vim $path
 }
 
 #Misc
