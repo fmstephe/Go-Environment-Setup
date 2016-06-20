@@ -2,6 +2,10 @@ function term() {
 	gnome-terminal --working-directory=`pwd`
 }
 
+function termx() {
+	gnome-terminal --working-directory=`pwd` && exit
+}
+
 # Golang
 function psrc() {
 	cd $GOPATH/src/github.com/fmstephe
