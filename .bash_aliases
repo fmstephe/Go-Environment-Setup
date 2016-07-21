@@ -15,6 +15,14 @@ function adj() {
 	cd $GOPATH/src/github.com/adjust
 }
 
+function back() {
+	cd $GOPATH/src/github.com/adjust/backend
+}
+
+function vend() {
+	cd $GOPATH/src/github.com/adjust/backend-vendor
+}
+
 function psg() {
 	ps -ef | grep $1
 }
@@ -25,6 +33,10 @@ function gr() {
 
 function grpl() {
 	grep -r --color=always -I --exclude-dir="\.git" $1 . | less -R
+}
+
+function srcg() {
+	grep -r --color=always -I --exclude-dir="\.git" --include=*.go --exclude=*_test.go $1 . | less -R
 }
 
 function do_in_subdirs()
@@ -147,10 +159,16 @@ alias grp="git grep"
 
 # Vim
 function fv() {
-	path=""
-	if [ $1 != ""  ]
+	search=$(echo $1 | cut -f1 -d:)
+	line=$(echo $1 | cut -f2 -d:)
+	if [ "$search" == "$line"  ]
 	then
-		path=$(fzf -q $1)
+		line=""
+	fi
+	path=""
+	if [ "$search" != ""  ]
+	then
+		path=$(fzf -q $search)
 	else
 		path=$(fzf)
 	fi
@@ -158,7 +176,12 @@ function fv() {
 	then
 		return
 	fi
-	vim $path
+	if [ "$line" == "" ]
+	then
+		vim $path
+	else
+		vim +$line $path
+	fi
 }
 
 #Misc
