@@ -11,6 +11,11 @@ function psrc() {
 	cd $GOPATH/src/github.com/fmstephe
 }
 
+# Golang Src
+function gsrc() {
+	cd $GOROOT/src
+}
+
 function adj() {
 	cd $GOPATH/src/github.com/adjust
 }
@@ -44,7 +49,7 @@ function do_in_subdirs()
         local WD=`pwd`;
         for DIR in ${WD}/*;
         do
-		if test -d $DIR;
+		if test -d ${DIR};
 		then
 			cd ${DIR};
 			$1
@@ -127,18 +132,34 @@ function pushall() {
 	do_in_subdirs git_push_in_dir
 }
 
-function ae_build_in_dir()
+function build_in_dir()
 {
 	local CURR_DIR=`pwd`;
-	if test -e ${CURR_DIR}/app.yaml;
+	if test -e ${CURR_DIR}/main.go;
 	then
-		goapp build
+		echo ${CURR_DIR}
+		go build
 	fi
 }
 
 function buildall() {
 	clear
-	do_in_subdirs ae_build_in_dir
+	do_in_subdirs build_in_dir
+}
+
+function test_in_dir()
+{
+	local CURR_DIR=`pwd`;
+	if test -e ${CURR_DIR}/*_test.go;
+	then
+		echo ${CURR_DIR}
+		go test
+	fi
+}
+
+function testall() {
+	clear
+	do_in_subdirs test_in_dir
 }
 
 alias allGo="find . -name '*.go' | xargs"
