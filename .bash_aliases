@@ -20,8 +20,39 @@ function adj() {
 	cd $GOPATH/src/github.com/adjust
 }
 
+function kpi() {
+	cd $GOPATH/src/github.com/adjust/kpi-service
+}
+
+function crash() {
+	cd $GOPATH/src/github.com/adjust/perf_tools/crashlogs/crun
+}
+
+function profile() {
+	cd $GOPATH/src/github.com/adjust/perf_tools/profile_collector
+}
+
+
 function back() {
 	cd $GOPATH/src/github.com/adjust/backend
+}
+
+function profile() {
+	cd ~/golang/proj/src/github.com/adjust/perf_tools/profile_collector
+}
+
+function buildBackend() {
+	pushd `pwd`
+	back
+	go build $(go list ./... | grep -v vendor)
+	popd
+}
+
+function testBackend() {
+	pushd `pwd`
+	back
+	go test $(go list ./... | grep -v vendor)
+	popd
 }
 
 function vend() {
@@ -33,15 +64,31 @@ function psg() {
 }
 
 function gr() {
-	find . -name '*.go' | xargs sed -i 's/'$1'/'$2'/g'
+	find . -name 'vendor' -prune -o -name '*.go' -print | xargs sed -i "" -e 's/'$1'/'$2'/g'
 }
 
 function grpl() {
-	grep -r --color=always -I --exclude-dir="\.git" $1 . | less -R
+	grep -nrI --color=always --exclude-dir="\.git" $1 . | less -R
 }
 
 function srcg() {
-	grep -r --color=always -I --exclude-dir="\.git" --include=*.go --exclude=*_test.go $1 . | less -R
+	grep -nr -I --color=always --exclude-dir="\.git" --include=*.go --exclude=*_test.go $1 .
+}
+
+function srcgl() {
+	grep -nr -I --color=always --exclude-dir="\.git" --include=*.go --exclude=*_test.go $1 . | less -R
+}
+
+function tstg() {
+	grep -nr -I --color=always --exclude-dir="\.git" --include=*_test.go $1 .
+}
+
+function tstgl() {
+	grep -nr -I --color=always --exclude-dir="\.git" --include=*_test.go $1 . | less -R
+}
+
+function clearLogs() {
+	find . -name '*.log' -exec rm {} \;
 }
 
 function do_in_subdirs()
@@ -174,9 +221,27 @@ function rnet() {
 alias gst="git status"
 alias gco="git checkout"
 alias gcm="git commit"
-alias gbr="git branch -avv"
+alias gbr="git branch -vv"
 alias glg="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
+alias glgr="git log --graph --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
 alias grp="git grep"
+alias gam_fpush="git commit -a --amend --no-edit && git push -f"
+alias gdu="git diff @{upstream}"
+alias grb="git rebase -i origin/master"
+alias grc="git rebase --continue"
+alias gra="git rebase --abort"
+alias gfrm="git fetch && git rebase origin/master"
+
+function pushCosmeticRebase() {
+	DIFF=$(git diff @{upstream})
+	if [ "$DIFF" == "" ]
+	then
+		git push -f
+	else
+		echo "Can't push, branch differs from upstream"
+		echo $DIFF
+	fi
+}
 
 # Vim
 function fv() {
@@ -210,13 +275,14 @@ alias hig="history | grep "
 alias fswp="find ~/ -name '*.swp'"
 alias lll="ls -1"
 alias lln="ls -1 | grep"
+alias ll="ls -l"
 
 repeat() {
 	n=$1
-		shift
-		while [ $(( n -= 1 )) -ge 0 ]
-			do
-				"$@"
-					done
+	shift
+	while [ $(( n -= 1 )) -ge 0 ]
+	do
+		"$@"
+	done
 }
 

@@ -12,5 +12,7 @@ call vundle#end()
 let g:go_fmt_command = "goimports"
 set viminfo+=:1000
 set backspace=indent,eol,start
+nnoremap H gT
+nnoremap L gt
 filetype plugin indent on
 syntax on
