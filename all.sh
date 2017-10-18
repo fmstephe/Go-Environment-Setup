@@ -9,5 +9,6 @@ set -e
 ./5_third_party.sh
 ./6_vim.sh
 ./7_git.sh
+./8_tmux.sh
 
 echo "Log out and log back into your system to complete setup"
