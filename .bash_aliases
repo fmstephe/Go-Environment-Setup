@@ -1,10 +1,4 @@
-function term() {
-	gnome-terminal --working-directory=`pwd`
-}
-
-function termx() {
-	gnome-terminal --working-directory=`pwd` && exit
-}
+# Misc
 
 # Golang
 function psrc() {
@@ -29,34 +23,15 @@ function crash() {
 }
 
 function profile() {
-	cd $GOPATH/src/github.com/adjust/perf_tools/profile_collector
+	cd $GOPATH/src/github.com/adjust/perf_tools/profile
 }
 
+function perf() {
+	cd $GOPATH/src/github.com/adjust/perf_tools
+}
 
 function back() {
 	cd $GOPATH/src/github.com/adjust/backend
-}
-
-function profile() {
-	cd ~/golang/proj/src/github.com/adjust/perf_tools/profile_collector
-}
-
-function buildBackend() {
-	pushd `pwd`
-	back
-	go build $(go list ./... | grep -v vendor)
-	popd
-}
-
-function testBackend() {
-	pushd `pwd`
-	back
-	go test $(go list ./... | grep -v vendor)
-	popd
-}
-
-function vend() {
-	cd $GOPATH/src/github.com/adjust/backend-vendor
 }
 
 function psg() {
@@ -64,7 +39,7 @@ function psg() {
 }
 
 function gr() {
-	find . -name 'vendor' -prune -o -name '*.go' -print | xargs sed -i "" -e 's/'$1'/'$2'/g'
+	find . -name 'vendor' -prune -o -name '*.go' -print | xargs sed -i "" -e 's/$1/$2/g'
 }
 
 function grpl() {
@@ -79,134 +54,20 @@ function srcgl() {
 	grep -nr -I --color=always --exclude-dir="\.git" --include=*.go --exclude=*_test.go $1 . | less -R
 }
 
+function cnfg() {
+	grep -nr -I --color=always --exclude-dir="\.git" --include=*.yml $1 .
+}
+
+function cnfgl() {
+	grep -nr -I --color=always --exclude-dir="\.git" --include=*.yml $1 . | less -R
+}
+
 function tstg() {
 	grep -nr -I --color=always --exclude-dir="\.git" --include=*_test.go $1 .
 }
 
 function tstgl() {
 	grep -nr -I --color=always --exclude-dir="\.git" --include=*_test.go $1 . | less -R
-}
-
-function clearLogs() {
-	find . -name '*.log' -exec rm {} \;
-}
-
-function do_in_subdirs()
-{
-        local WD=`pwd`;
-        for DIR in ${WD}/*;
-        do
-		if test -d ${DIR};
-		then
-			cd ${DIR};
-			$1
-			do_in_subdirs $1
-		fi
-        done
-	cd ${WD}
-}
-
-function git_fetch_in_dir()
-{
-	local CURR_DIR=`pwd`;
-	if test -e ${CURR_DIR}/.git;
-	then
-		echo $CURR_DIR
-		git fetch
-	fi
-}
-
-function fetchall() {
-	clear
-	do_in_subdirs git_fetch_in_dir
-}
-
-function git_status_in_dir()
-{
-	local CURR_DIR=`pwd`;
-	if test -e ${CURR_DIR}/.git;
-	then
-		S=`git status | grep ahead`
-		S+=`git status | grep behind`
-		S+=`git status --porcelain`;
-		if [ "${S}" != "" ];
-		then
-			echo $CURR_DIR
-			echo
-			echo "-----------------"
-			echo
-			git status
-		fi
-	fi
-}
-
-function statusall() {
-	clear
-	do_in_subdirs git_status_in_dir
-}
-
-function git_rebase_in_dir()
-{
-	local CURR_DIR=`pwd`;
-	if test -e ${CURR_DIR}/.git;
-	then
-		R=`git rebase`
-		GR=`echo ${R} | grep "is\sup\sto\sdate"`
-		if [ "${GR}" == "" ];
-		then
-			echo $CURR_DIR
-			echo ${R}
-		fi
-	fi
-}
-
-function rebaseall() {
-	clear
-	do_in_subdirs git_rebase_in_dir
-}
-
-function git_push_in_dir()
-{
-	local CURR_DIR=`pwd`;
-	if test -e ${CURR_DIR}/.git;
-	then
-		git push
-	fi
-}
-
-function pushall() {
-	clear
-	do_in_subdirs git_push_in_dir
-}
-
-function build_in_dir()
-{
-	local CURR_DIR=`pwd`;
-	if test -e ${CURR_DIR}/main.go;
-	then
-		echo ${CURR_DIR}
-		go build
-	fi
-}
-
-function buildall() {
-	clear
-	do_in_subdirs build_in_dir
-}
-
-function test_in_dir()
-{
-	local CURR_DIR=`pwd`;
-	if test -e ${CURR_DIR}/*_test.go;
-	then
-		echo ${CURR_DIR}
-		go test
-	fi
-}
-
-function testall() {
-	clear
-	do_in_subdirs test_in_dir
 }
 
 alias allGo="find . -name '*.go' | xargs"
@@ -216,6 +77,20 @@ function rnet() {
 	sleep 1
 	sudo ifup eth0
 }
+
+# Go
+alias buildTests="go test ./... -run a^"
+alias gobuild="clear && go build ./..."
+alias gotest="clear && go test ./..."
+function dependantPackages() {
+	OUTPUT=`go list -f {{.Deps}}`
+	LINES=( $OUTPUT )
+	printf "%s\n" "${LINES[@]}"
+}
+
+# Profiling
+alias web_heap="pprof --http :8081 -source_path /Users/fmstephe/golang/proj -alloc_objects heap"
+alias web_prof="pprof --http :8081 -source_path /Users/fmstephe/golang/proj profile"
 
 # Git
 alias gst="git status"
@@ -227,10 +102,55 @@ alias glgr="git log --graph --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h
 alias grp="git grep"
 alias gam_fpush="git commit -a --amend --no-edit && git push -f"
 alias gdu="git diff @{upstream}"
-alias grb="git rebase -i origin/master"
+alias gdf="clear && git diff ./"
 alias grc="git rebase --continue"
+alias grs="git rebase --skip"
 alias gra="git rebase --abort"
 alias gfrm="git fetch && git rebase origin/master"
+alias gsh="git show HEAD"
+alias gshn="git show HEAD --name-only"
+alias grec="git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print \$3 }' | awk ' !seen[\$0]++' | head -n10"
+alias gdc="git log origin/master..HEAD --pretty=format:'%s' | sort | uniq -d"
+
+function clearGone() {
+	for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do
+		echo "Delete $branch?"
+		select yn in "Yes" "No"; do
+			case $yn in
+				Yes ) git branch -D $branch; break;;
+				No ) ;;
+			esac
+		done
+	done
+}
+
+# > to_deploy.sh <branch> <base_branch>
+function to_deploy() {
+	declare -r mains=$(go list -json ./... | jq --compact-output '. | select(.Name == "main") | {ImportPath: .ImportPath, Deps: .Deps}')
+	declare -r changed=($(git diff --name-only origin/master...HEAD \
+		    | grep -v '_test.go$' \
+		    | grep '.go$' \
+		    | xargs -I % dirname % \
+		    | sort -u \
+	))
+
+	to_deploy=()
+
+	for pkg in ${changed[@]}; do
+		    to_deploy+=($(echo "$mains" | jq --raw-output ". | select(.Deps[] | endswith(\"$pkg\")) | .ImportPath"))
+	done
+	echo ${to_deploy[@]} | tr ' ' '\n' | sort -u
+}
+
+function grb() {
+	MISSING=`git cherry -v HEAD origin/master`
+	if [ "${MISSING}" != "" ]; then
+		echo "${BRANCH} is not ahead of origin/master"
+		echo "Please fetch and rebase"
+	else
+		git rebase -i origin/master
+	fi
+}
 
 function pushCosmeticRebase() {
 	DIFF=$(git diff @{upstream})
