@@ -18,5 +18,5 @@ fi
 cd $HOME/golang
 git clone https://go.googlesource.com/go
 cd $HOME/golang/go/src
-git checkout release-branch.go1.8
+git checkout release-branch.go1.11
 ./all.bash
