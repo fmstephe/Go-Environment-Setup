@@ -10,9 +10,16 @@
 
 export PS1="\w $ "
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
+# BEGIN OSX specific setup
+if [ -x "$(command -v brew)" ]; then
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      . $(brew --prefix)/etc/bash_completion
+    fi
 fi
+
+[ -d "$HOME/.rvm" ] && . "$HOME/.rvm/scripts/rvm"
+
+# END OSX specific setup
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -22,7 +29,6 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-source "$HOME/.rvm/scripts/rvm"
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
@@ -34,7 +40,7 @@ export LESSCHARSET=utf-8
 export GOLANG=$HOME/golang
 export GOROOT=$GOLANG/go
 export GOARCH=amd64
-export GOOS=darwin
+export GOOS=$(uname | tr A-Z a-z)
 export GOBIN=$GOROOT/bin
 export GOPATH=$GOLANG/proj
 export GOMAXPROCS=4
