@@ -11,12 +11,16 @@ call vundle#begin()
 Plugin 'fatih/vim-go'
 Plugin 'rust-lang/rust.vim'
 Plugin 'avakhov/vim-yaml'
+Plugin 'junegunn/fzf'
 call vundle#end()
 let g:go_fmt_command = "goimports"
 let g:go_list_autoclose = 0
 let g:go_fold_enable = []
 set viminfo+=:1000
 set backspace=indent,eol,start
+:command TF call fzf#run(fzf#wrap({'sink': 'tab drop'}))
+map <F7> :tabprevious<cr>
+map <F8> :tabnext<cr>
 nnoremap H gT
 nnoremap L gt
 map nn :set number relativenumber<CR>
