@@ -47,7 +47,11 @@ export GOMAXPROCS=4
 export CFLAGS="-Wall"
 PATH=$PATH:$GOPATH/bin:$GOBIN
 
+export GOPRIVATE=gitlab.sigmoidbell.net/sigmoidbell,github.com/Metrika-Inc
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+
+export KUBE_CONFIG_PATH=~/.kube/config
 
 . ~/.bash_aliases

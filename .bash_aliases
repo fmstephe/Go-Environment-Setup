@@ -1,37 +1,90 @@
 # Misc
 
+# AWS
+
+function awsMetrikaEngineer() {
+	aws-vault exec metrika_engineer -d 12h
+}
+
+function awsCallerIdentity() {
+	aws sts get-caller-identity
+}
+
+function awsUpdateK8sConfig() {
+	aws eks update-kubeconfig --region us-east-1 --name alerthub-sandboxes --alias alerthub-sandboxes
+}
+
+# timescale
+
+function timescaleConnect() {
+	pomerium-cli tcp timescale.sandboxes.aws.metrika.co:5432  --listen :5432
+}
+
+# Kubernetes
+
+function k8sClusterInfo() {
+	kubectl cluster-info
+}
+
+function k8sContexts() {
+	kubectl config get-contexts
+}
+
+function k8sGetPods() {
+	kubectl get pods -n alerthub
+}
+
+# This is obviously an example only - you need to add the pod id yourself
+function k8sGetLogs() {
+	kubectl logs -n alerthub go-river-745748cd4d-g7vmk
+}
+
+function k8sEvents() {
+	kubectl get events -n alerthub
+}
+
+function k8sGetPodWide() {
+	kubectl get pod -o wide
+}
+
+# Rough, assumes you just want staging
+function k8sGoRiverLogs() {
+	stern -n alerthub go-river
+}
+
+function k8sGoRiverLogsInfo() {
+	stern -n alerthub go-river | grep -i --line-buffered -E '"info"'
+}
+
+function eksUpdateAllClusters() {
+	for region in us-east-1 eu-west-1; do
+	    for cluster in `aws eks list-clusters --region $region | jq -r .clusters[]`; do
+	        aws eks update-kubeconfig --name $cluster --alias $cluster --region $region
+	    done
+	done
+}
+
+
 # Golang
 function psrc() {
 	cd $GOPATH/src/github.com/fmstephe
 }
 
+function msrc() {
+	cd $GOPATH/src/github.com/metrika
+}
+
+function glab() {
+	cd $GOPATH/src/gitlab.com/
+}
+
+function ghub() {
+	cd $GOPATH/src/github.com/
+}
+
 # Golang Src
 function gsrc() {
 	cd $GOROOT/src
-}
-
-function adj() {
-	cd $GOPATH/src/github.com/adjust
-}
-
-function kpi() {
-	cd $GOPATH/src/github.com/adjust/kpi-service
-}
-
-function crash() {
-	cd $GOPATH/src/github.com/adjust/perf_tools/crashlogs/crun
-}
-
-function profile() {
-	cd $GOPATH/src/github.com/adjust/perf_tools/profile
-}
-
-function perf() {
-	cd $GOPATH/src/github.com/adjust/perf_tools
-}
-
-function back() {
-	cd $GOPATH/src/github.com/adjust/backend
 }
 
 function psg() {
@@ -106,7 +159,8 @@ alias gdf="clear && git diff ./"
 alias grc="git rebase --continue"
 alias grs="git rebase --skip"
 alias gra="git rebase --abort"
-alias gfrm="git fetch && git rebase origin/master"
+alias gfrm="git fetch --prune && git rebase origin/master"
+alias gfr="git fetch --prune && git rebase"
 alias gsh="git show HEAD"
 alias gshn="git show HEAD --name-only"
 alias grec="git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print \$3 }' | awk ' !seen[\$0]++' | head -n10"
