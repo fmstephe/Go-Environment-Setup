@@ -41,7 +41,6 @@ export GOLANG=$HOME/golang
 export GOROOT=$GOLANG/go
 export GOARCH=amd64
 export GOOS=$(uname | tr A-Z a-z)
-export GOBIN=$GOROOT/bin
 export GOPATH=$GOLANG/proj
 export GOMAXPROCS=4
 export CFLAGS="-Wall"
