@@ -4,12 +4,15 @@
 sudo apt-get --assume-yes install golang
 
 cd $HOME/golang
-git clone https://go.googlesource.com/go
+if [ ! -d $HOME/golang/go ]; then
+	git clone https://go.googlesource.com/go
+fi	
+
 cd $HOME/golang/go/src
-git checkout go1.18.3
+git checkout go1.21.6
 ./all.bash
 
-# Remove the bootstrap version of Go
+# Remove the bootstrap version of Go (if we had to install it)
 sudo apt-get --assume-yes remove golang
 sudo apt-get --assume-yes autoremove
 
