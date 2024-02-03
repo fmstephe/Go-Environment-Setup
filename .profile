@@ -39,18 +39,12 @@ fi
 export LESSCHARSET=utf-8
 export GOLANG=$HOME/golang
 export GOROOT=$GOLANG/go
-export GOARCH=amd64
-export GOOS=$(uname | tr A-Z a-z)
 export GOPATH=$GOLANG/proj
-export GOMAXPROCS=4
-export CFLAGS="-Wall"
-PATH=$PATH:$GOPATH/bin:$GOBIN
+export GOBIN=$GOLANG/go/bin
 
-export GOPRIVATE=gitlab.sigmoidbell.net/sigmoidbell,github.com/Metrika-Inc
+PATH=$PATH:$GOPATH/bin:$GOBIN
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-
-export KUBE_CONFIG_PATH=~/.kube/config
 
 . ~/.bash_aliases

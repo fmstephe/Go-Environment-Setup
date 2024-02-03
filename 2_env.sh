@@ -10,3 +10,5 @@ then
 fi
 cp .bash_aliases $HOME/
 cp .profile $HOME/
+
+source .profile
