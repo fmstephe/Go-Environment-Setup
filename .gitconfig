@@ -7,3 +7,6 @@
 	email = francisstephens@gmail.com
 [push]
 	default = simple
+	autoSetupRemote = true
+[checkout]
+	defaultRemote = origin
