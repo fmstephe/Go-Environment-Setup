@@ -9,7 +9,7 @@ if [ ! -d $HOME/golang/go ]; then
 fi	
 
 cd $HOME/golang/go/src
-git checkout go1.21.6
+git checkout go1.22.1
 ./all.bash
 
 # Remove the bootstrap version of Go (if we had to install it)
