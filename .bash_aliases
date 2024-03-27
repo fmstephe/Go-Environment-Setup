@@ -5,10 +5,6 @@ function psrc() {
 	cd $GOPATH/src/github.com/fmstephe
 }
 
-function msrc() {
-	cd $GOPATH/src/github.com/metrika
-}
-
 function glab() {
 	cd $GOPATH/src/gitlab.com/
 }
@@ -70,11 +66,6 @@ function rnet() {
 alias buildTests="go test ./... -run a^"
 alias gobuild="clear && go build ./..."
 alias gotest="clear && go test ./..."
-function dependantPackages() {
-	OUTPUT=`go list -f {{.Deps}}`
-	LINES=( $OUTPUT )
-	printf "%s\n" "${LINES[@]}"
-}
 
 # Profiling
 alias web_heap="pprof --http :8081 -source_path /Users/fmstephe/golang/proj -alloc_objects heap"
@@ -86,6 +77,7 @@ alias gco="git checkout"
 alias gcm="git commit"
 alias gbr="git branch -vv"
 alias glg="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
+alias glgs="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%Creset%n'"
 alias glgr="git log --graph --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
 alias grp="git grep"
 alias gam_fpush="git commit -a --amend --no-edit && git push -f"
@@ -138,6 +130,26 @@ function grb() {
 		echo "Please fetch and rebase"
 	else
 		git rebase -i origin/master
+	fi
+}
+
+function grb_build() {
+	MISSING=`git cherry -v HEAD origin/master`
+	if [ "${MISSING}" != "" ]; then
+		echo "${BRANCH} is not ahead of origin/master"
+		echo "Please fetch and rebase"
+	else
+		git rebase -i origin/master --exec 'go test ./... -run ^$'
+	fi
+}
+
+function grb_test() {
+	MISSING=`git cherry -v HEAD origin/master`
+	if [ "${MISSING}" != "" ]; then
+		echo "${BRANCH} is not ahead of origin/master"
+		echo "Please fetch and rebase"
+	else
+		git rebase -i origin/master --exec 'go test ./...'
 	fi
 }
 
