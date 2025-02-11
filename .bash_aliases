@@ -71,10 +71,15 @@ alias gotest="clear && go test ./..."
 alias web_heap="pprof --http :8081 -source_path /Users/fmstephe/golang/proj -alloc_objects heap"
 alias web_prof="pprof --http :8081 -source_path /Users/fmstephe/golang/proj profile"
 
+source /usr/share/bash-completion/completions/git
+
 # Git
 alias gst="git status"
 alias gco="git checkout"
+# This is fancy, and allows branch name tab-completion on this alias!
+__git_complete gco _git_branch
 alias gcm="git commit"
+alias gcman="git commit --amend --no-edit"
 alias gbr="git branch -vv"
 alias glg="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%b%Creset%n'"
 alias glgs="git log --pretty=format:'%C(dim yellow)<%an> (%cr) %C(red)%h %C(dim white)%d%n%n%C(blue)%s%n%n%Creset%Creset%n'"
