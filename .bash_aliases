@@ -98,6 +98,10 @@ alias gshn="git show HEAD --name-only"
 alias grec="git reflog | egrep -io 'moving from ([^[:space:]]+)' | awk '{ print \$3 }' | awk ' !seen[\$0]++' | head -n10"
 alias gdc="git log origin/master..HEAD --pretty=format:'%s' | sort | uniq -d"
 
+function blameDates() {
+	git blame --line-porcelain ${1} | grep "^author-time" | grep -o [0-9]* | sort -r | uniq | xargs -I{} date -r {} +"%Y-%m-%d %H:%M:%S"
+}
+
 function clearGone() {
 	for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do
 		echo "Delete $branch?"
@@ -114,16 +118,16 @@ function clearGone() {
 function to_deploy() {
 	declare -r mains=$(go list -json ./... | jq --compact-output '. | select(.Name == "main") | {ImportPath: .ImportPath, Deps: .Deps}')
 	declare -r changed=($(git diff --name-only origin/master...HEAD \
-		    | grep -v '_test.go$' \
-		    | grep '.go$' \
-		    | xargs -I % dirname % \
-		    | sort -u \
-	))
+		| grep -v '_test.go$' \
+		| grep '.go$' \
+		| xargs -I % dirname % \
+		| sort -u \
+		))
 
 	to_deploy=()
 
 	for pkg in ${changed[@]}; do
-		    to_deploy+=($(echo "$mains" | jq --raw-output ". | select(.Deps[] | endswith(\"$pkg\")) | .ImportPath"))
+		to_deploy+=($(echo "$mains" | jq --raw-output ". | select(.Deps[] | endswith(\"$pkg\")) | .ImportPath"))
 	done
 	echo ${to_deploy[@]} | tr ' ' '\n' | sort -u
 }
