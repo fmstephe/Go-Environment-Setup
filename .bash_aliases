@@ -23,7 +23,7 @@ function psg() {
 }
 
 function gr() {
-	find . -name 'vendor' -prune -o -name '*.go' -print | xargs sed -i "" -e 's/$1/$2/g'
+	find . -name "vendor" -prune -o -name "*.go" -exec sed -i "s/${1}/${2}/g" {} +
 }
 
 function grpl() {
@@ -216,3 +216,43 @@ repeat() {
 	done
 }
 
+function start_tmux() {
+	start_guitar_practice
+	start_fuzzhelper
+	start_memorymanager
+	tmux -2 attach-session -d
+}
+
+function start_guitar_practice() {
+	tmux new-session -d -s guitar_practice -c golang/proj/src/github.com/fmstephe/practice_timer/counter
+	tmux split-window -h
+	tmux select-pane -t 0
+	tmux split-window -v
+	tmux select-pane -t 1
+	tmux split-window -v
+	tmux select-pane -t 0
+	tmux split-window -v
+	tmux select-pane -t 4
+	tmux split-window -v
+	tmux select-pane -t 5
+	tmux split-window -v
+	tmux select-pane -t 4
+	tmux split-window -v
+	tmux select-pane -t 0
+}
+
+function start_fuzzhelper() {
+	tmux new-session -d -s fuzzhelper -c golang/proj/src/github.com/fmstephe/fuzzhelper
+}
+
+function start_memorymanager() {
+	tmux new-session -d -s memorymanager -c golang/proj/src/github.com/fmstephe/memorymanager
+}
+
+function standardTimer() {
+	counter -d 2m,10s,2m,10s,10m,30s,10m
+}
+
+function minuteTimer() {
+	counter -d 1m,10s -r 1000
+}
