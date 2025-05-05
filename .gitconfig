@@ -1,12 +1,30 @@
 [core]
-	editor = vim
-	excludesfile = ~/.gitignore
-	pager = less
+        editor = vim
+        excludesfile = ~/.gitignore
+        pager = less
 [user]
+	email = francis.stephens@gmail.com
 	name = Francis Stephens
-	email = francisstephens@gmail.com
 [push]
 	default = simple
 	autoSetupRemote = true
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[commit]
+	verbose = true
 [checkout]
 	defaultRemote = origin
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
