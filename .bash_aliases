@@ -118,16 +118,16 @@ function clearGone() {
 function to_deploy() {
 	declare -r mains=$(go list -json ./... | jq --compact-output '. | select(.Name == "main") | {ImportPath: .ImportPath, Deps: .Deps}')
 	declare -r changed=($(git diff --name-only origin/master...HEAD \
-		| grep -v '_test.go$' \
-		| grep '.go$' \
-		| xargs -I % dirname % \
-		| sort -u \
-		))
+		    | grep -v '_test.go$' \
+		    | grep '.go$' \
+		    | xargs -I % dirname % \
+		    | sort -u \
+	))
 
 	to_deploy=()
 
 	for pkg in ${changed[@]}; do
-		to_deploy+=($(echo "$mains" | jq --raw-output ". | select(.Deps[] | endswith(\"$pkg\")) | .ImportPath"))
+		    to_deploy+=($(echo "$mains" | jq --raw-output ". | select(.Deps[] | endswith(\"$pkg\")) | .ImportPath"))
 	done
 	echo ${to_deploy[@]} | tr ' ' '\n' | sort -u
 }
@@ -224,29 +224,35 @@ function start_tmux() {
 }
 
 function start_guitar_practice() {
-	tmux new-session -d -s guitar_practice -c golang/proj/src/github.com/fmstephe/practice_timer/counter
-	tmux split-window -h
-	tmux select-pane -t 0
-	tmux split-window -v
-	tmux select-pane -t 1
-	tmux split-window -v
-	tmux select-pane -t 0
-	tmux split-window -v
-	tmux select-pane -t 4
-	tmux split-window -v
-	tmux select-pane -t 5
-	tmux split-window -v
-	tmux select-pane -t 4
-	tmux split-window -v
-	tmux select-pane -t 0
+	if ! tmux has-session -t "guitar_practice" 2>/dev/null; then
+		tmux new-session -d -s guitar_practice -c golang/proj/src/github.com/fmstephe/practice_timer/counter
+		tmux split-window -h -c '#{pane_current_path}'
+		tmux select-pane -t 0
+		tmux split-window -v -c '#{pane_current_path}'
+		tmux select-pane -t 1
+		tmux split-window -v -c '#{pane_current_path}'
+		tmux select-pane -t 0
+		tmux split-window -v -c '#{pane_current_path}'
+		tmux select-pane -t 4
+		tmux split-window -v -c '#{pane_current_path}'
+		tmux select-pane -t 5
+		tmux split-window -v -c '#{pane_current_path}'
+		tmux select-pane -t 4
+		tmux split-window -v -c '#{pane_current_path}'
+		tmux select-pane -t 0
+	fi
 }
 
 function start_fuzzhelper() {
-	tmux new-session -d -s fuzzhelper -c golang/proj/src/github.com/fmstephe/fuzzhelper
+	if ! tmux has-session -t "fuzzhelper" 2>/dev/null; then
+		tmux new-session -d -s fuzzhelper -c golang/proj/src/github.com/fmstephe/fuzzhelper
+	fi
 }
 
 function start_memorymanager() {
-	tmux new-session -d -s memorymanager -c golang/proj/src/github.com/fmstephe/memorymanager
+	if ! tmux has-session -t "memorymanager" 2>/dev/null; then
+		tmux new-session -d -s memorymanager -c golang/proj/src/github.com/fmstephe/memorymanager
+	fi
 }
 
 function standardTimer() {
