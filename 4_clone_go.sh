@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# install a bootstrapping version of Go to build the compiler
 sudo apt-get --assume-yes install golang
 
 cd $HOME/golang
@@ -8,8 +9,11 @@ if [ ! -d $HOME/golang/go ]; then
 fi	
 
 cd $HOME/golang/go/src
-git checkout go1.22.1
-# Don't actually build the source, just enjoy it as is
-#./all.bash
+git checkout go1.20.14
+./all.bash
+
+# Remove the bootstrap version of Go (if we had to install it)
+sudo apt-get --assume-yes remove golang
+sudo apt-get --assume-yes autoremove
 
 which go
