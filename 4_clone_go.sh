@@ -10,7 +10,7 @@ fi
 
 cd $HOME/golang/go/src
 git checkout go1.20.14
-./all.bash
+./make.bash
 
 # Remove the bootstrap version of Go (if we had to install it)
 sudo apt-get --assume-yes remove golang
