@@ -259,6 +259,14 @@ function standardTimer() {
 	counter -d 2m,10s,2m,10s,10m,30s,10m
 }
 
+function morningTimer() {
+	counter -d 2m,10s,2m,10s,2m,10s,2m,10s,2m,10s,2m,10s,2m,10s,2m,10s,2m,10s,2m,10s,10m,30s,10m
+}
+
+function fiveMinuteTimer() {
+	counter -d 5m,10s,5m,10s,5m,10s,5m,10s,5m
+}
+
 function minuteTimer() {
 	counter -d 1m,10s -r 1000
 }
