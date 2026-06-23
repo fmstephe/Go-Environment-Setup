@@ -2,15 +2,15 @@
 
 # Golang
 function psrc() {
-	cd $GOPATH/src/github.com/fmstephe
+	cd ~/golang/proj/src/github.com/fmstephe
 }
 
 function glab() {
-	cd $GOPATH/src/gitlab.com/
+	cd ~/golang/proj/src/gitlab.com/
 }
 
 function ghub() {
-	cd $GOPATH/src/github.com/
+	cd ~/golang/proj/src/github.com/
 }
 
 # Golang Src
@@ -23,7 +23,7 @@ function psg() {
 }
 
 function gr() {
-	find . -name "vendor" -prune -o -name "*.go" -exec sed -i "s/${1}/${2}/g" {} +
+	find . -name "vendor" -prune -o -name "*.go" -exec sed -i '' "s|${1}|${2}|g" {} +
 }
 
 function grpl() {
@@ -31,27 +31,27 @@ function grpl() {
 }
 
 function srcg() {
-	grep -nr -I --color=always --exclude-dir="\.git" --include=*.go --exclude=*_test.go $1 .
+	grep -nr -I --color=always --exclude-dir="\.git" --include='*.go' --exclude='*_test.go' $1 .
 }
 
 function srcgl() {
-	grep -nr -I --color=always --exclude-dir="\.git" --include=*.go --exclude=*_test.go $1 . | less -R
+	grep -nr -I --color=always --exclude-dir="\.git" --include='*.go' --exclude='*_test.go' $1 . | less -R
 }
 
 function cnfg() {
-	grep -nr -I --color=always --exclude-dir="\.git" --include=*.yml $1 .
+	grep -nr -I --color=always --exclude-dir="\.git" --include='*.yml' $1 .
 }
 
 function cnfgl() {
-	grep -nr -I --color=always --exclude-dir="\.git" --include=*.yml $1 . | less -R
+	grep -nr -I --color=always --exclude-dir="\.git" --include='*.yml' $1 . | less -R
 }
 
 function tstg() {
-	grep -nr -I --color=always --exclude-dir="\.git" --include=*_test.go $1 .
+	grep -nr -I --color=always --exclude-dir="\.git" --include='*_test.go' $1 .
 }
 
 function tstgl() {
-	grep -nr -I --color=always --exclude-dir="\.git" --include=*_test.go $1 . | less -R
+	grep -nr -I --color=always --exclude-dir="\.git" --include='*_test.go' $1 . | less -R
 }
 
 alias allGo="find . -name '*.go' | xargs"
@@ -71,13 +71,9 @@ alias gotest="clear && go test ./..."
 alias web_heap="pprof --http :8081 -source_path /Users/fmstephe/golang/proj -alloc_objects heap"
 alias web_prof="pprof --http :8081 -source_path /Users/fmstephe/golang/proj profile"
 
-source /usr/share/bash-completion/completions/git
-
 # Git
 alias gst="git status"
 alias gco="git checkout"
-# This is fancy, and allows branch name tab-completion on this alias!
-__git_complete gco _git_branch
 alias gcm="git commit"
 alias gcman="git commit --amend --no-edit"
 alias gbr="git branch -vv"
@@ -207,15 +203,6 @@ alias lll="ls -1"
 alias lln="ls -1 | grep"
 alias ll="ls -l"
 
-repeat() {
-	n=$1
-	shift
-	while [ $(( n -= 1 )) -ge 0 ]
-	do
-		"$@"
-	done
-}
-
 function start_tmux() {
 	start_guitar_practice
 	start_fuzzhelper
@@ -255,8 +242,24 @@ function start_memorymanager() {
 	fi
 }
 
-function standardTimer() {
-	counter -d 2m,10s,2m,10s,10m,30s,10m
+function fullSessionTimer() {
+	counter -d 2m,10s,2m,10s,5m,10s,5m,10s,5m,10s,5m,10s,5m,10s,5m,10s,5m,10s,5m
+}
+
+function 5MinuteSession() {
+	counter -d 10s,2m,10s,5m,10s,5m,10s,5m,10s,5m
+}
+
+function 10MinuteSession() {
+	counter -d 10s,2m,10s,10m,10s,10m
+}
+
+function 1055MinuteSession() {
+	counter -d 10s,2m,10s,10m,10s,5m,10s,5m
+}
+
+function secondHalfTimer() {
+	counter -d 10s,5m,10s,5m,10s,5m,10s,5m
 }
 
 function morningTimer() {
